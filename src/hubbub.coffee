@@ -5,7 +5,7 @@ Robot                                   = require '../robot'
 Adapter                                 = require '../adapter'
 {TextMessage,EnterMessage,LeaveMessage} = require '../message'
 
-class Hubbub extends Adapter
+class HubbubAdapter extends Adapter
   send: (envelope, strings...) ->
     if strings.length > 0
       @bot.Room(envelope.room).speak strings.shift(), (err, data) =>
@@ -68,7 +68,7 @@ class Hubbub extends Adapter
     self.emit "connected"
 
 exports.use = (robot) ->
-  new Hubbub robot
+  new HubbubAdapter robot
 
 class HubbubStreaming extends EventEmitter
   constructor: (options, @robot) ->
