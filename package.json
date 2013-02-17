@@ -1,0 +1,29 @@
+{
+  "name": "hubot-hubbub",
+  "version": "1.0.0",
+  "author": "Riley Dutton",
+  "keywords": [
+    "github hubot hubbub adapter"
+  ],
+  "description": "A Hubbub adapter for hubot",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/tombell/hubot-twilio/raw/master/LICENSE"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hubbubco/hubot-hubbub.git"
+  },
+  "dependencies": {
+    "hubot": ">=2.0.5"
+  },
+  "devDependencies": {
+    "coffee-script": "1.1.3"
+  },
+  "main": "./src/hubbub",
+  "engines": {
+    "node": "*"
+  }
+}
