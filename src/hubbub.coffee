@@ -1,11 +1,9 @@
 HTTPS          = require 'https'
 {EventEmitter} = require 'events'
 
-Robot   = require('hubot').Robot
-Adapter = require('hubot').Adapter
-TextMessage = require('hubot').TextMessage
+{Robot, Adapter, TextMessage, EnterMessage, LeaveMessage, Response} = require 'hubot'
 
-class HubbubAdapter extends Adapter
+class Hubbub extends Adapter
   send: (envelope, strings...) ->
     if strings.length > 0
       @bot.Room(envelope.room).speak strings.shift(), (err, data) =>
@@ -68,7 +66,7 @@ class HubbubAdapter extends Adapter
     self.emit "connected"
 
 exports.use = (robot) ->
-  new HubbubAdapter robot
+  new Hubbub robot
 
 class HubbubStreaming extends EventEmitter
   constructor: (options, @robot) ->
