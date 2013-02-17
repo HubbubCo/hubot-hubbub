@@ -77,7 +77,7 @@ class HubbubStreaming extends EventEmitter
     @token         = options.token
     @rooms         = options.rooms.split(",")
     @account       = options.account
-    @host          = "localhost:3000"
+    @host          = "localhost"
     @authorization = "Basic " + new Buffer("#{@token}:x").toString("base64")
 
   Rooms: (callback) ->
