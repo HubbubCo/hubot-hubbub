@@ -1,5 +1,5 @@
 HTTPS          = require 'https'
-{EventEmitter} = require 'events'
+EventEmitter = require('events').EventEmitter
 
 {Robot, Adapter, TextMessage, EnterMessage, LeaveMessage, Response} = require 'hubot'
 
