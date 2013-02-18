@@ -1,10 +1,12 @@
 HTTPS          = require 'http'
 EventEmitter = require('events').EventEmitter
 
-{EnterMessage, LeaveMessage, Response} = require 'hubot'
-TextMessage = require('hubot').TextMessage
 Robot   = require('hubot').Robot
 Adapter = require('hubot').Adapter
+TextMessage = require('hubot').TextMessage
+{EnterMessage, LeaveMessage, Response} = require 'hubot'
+
+
 
 class Hubbub extends Adapter
   send: (envelope, strings...) ->
@@ -36,7 +38,7 @@ class Hubbub extends Adapter
              name: "Test"
              id: userid
              room: room
-        newmsg = new Robot.TextMessage(user, body)
+        newmsg = new TextMessage(user, body)
         console.log("Bot.on");
         console.log(newmsg instanceof TextMessage);
         self.receive newmsg
