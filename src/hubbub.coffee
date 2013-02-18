@@ -11,6 +11,7 @@ class Hubbub extends Adapter
         @send envelope.user, strings...
 
   reply: (envelope, strings...) ->
+    console.log(envelope)
     @send envelope, strings.map((str) -> "#{envelope.user.name}: #{str}")...
 
   topic: (envelope, strings...) ->
