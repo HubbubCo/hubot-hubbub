@@ -12,7 +12,7 @@ class Hubbub extends Adapter
 
   reply: (envelope, strings...) ->
     console.log(envelope)
-    @send envelope, strings.map((str) -> "#{envelope.user.name}: #{str}")...
+    @send envelope, strings.map((str) -> "#{envelope.name}: #{str}")...
 
   topic: (envelope, strings...) ->
     @bot.Room(envelope.room).topic strings.join(" / "), (err, data) =>
