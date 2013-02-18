@@ -1,7 +1,8 @@
-HTTPS          = require 'https'
+HTTPS          = require 'http'
 EventEmitter = require('events').EventEmitter
 
-{Robot, Adapter, TextMessage, EnterMessage, LeaveMessage, Response} = require 'hubot'
+{Robot, Adapter, EnterMessage, LeaveMessage, Response} = require 'hubot'
+TextMessage = require('hubot').TextMessage
 
 class Hubbub extends Adapter
   send: (envelope, strings...) ->
@@ -27,26 +28,24 @@ class Hubbub extends Adapter
 
     bot = new HubbubStreaming(options, @robot)
 
-    withAuthor = (callback) -> (id, created, room, user, body) ->
-      bot.User user, (err, userData) ->
-        if userData.user
-          author = self.userForId(userData.user.id, userData.user)
-          self.robot.brain.data.users[userData.user.id].name = userData.user.name
-          self.robot.brain.data.users[userData.user.id].email_address = userData.user.email_address
-          author.room = room
-          callback id, created, room, user, body, author
+    bot.on "TextMessage", (id, created, room, userid, body) ->
+      unless bot.info.id == userid
+        user =
+             name: "Test"
+             id: userid
+             room: room
+        newmsg = new TextMessage(user, body)
+        console.log("Bot.on");
+        console.log(newmsg instanceof TextMessage);
+        self.receive newmsg
 
-    bot.on "TextMessage", withAuthor (id, created, room, user, body, author) ->
-      unless bot.info.id == author.id
-        self.receive new TextMessage(author, body, id)
+    bot.on "EnterMessage", (id, created, room, user, body) ->
+      unless bot.info.id == user.id
+        self.receive new EnterMessage(user, null, id)
 
-    bot.on "EnterMessage", withAuthor (id, created, room, user, body, author) ->
-      unless bot.info.id == author.id
-        self.receive new EnterMessage(author, null, id)
-
-    bot.on "LeaveMessage", withAuthor (id, created, room, user, body, author) ->
-      unless bot.info.id == author.id
-        self.receive new LeaveMessage(author, null, id)
+    bot.on "LeaveMessage", (id, created, room, user, body) ->
+      unless bot.info.id == user.id
+        self.receive new LeaveMessage(user, null, id)
 
     bot.Me (err, data) ->
       bot.info = data.user
@@ -120,10 +119,12 @@ class HubbubStreaming extends EventEmitter
       @message text, "SoundMessage", callback
 
     speak: (text, callback) ->
+      console.log("I want to speak!");
       body = { message: { "body":text } }
       self.post "/room/#{id}/speak", body, callback
 
     message: (text, type, callback) ->
+      console.log("I want to message!");
       body = { message: { "body":text, "type":type } }
       self.post "/room/#{id}/speak", body, callback
 
@@ -147,6 +148,7 @@ class HubbubStreaming extends EventEmitter
         buf = ''
 
         response.on "data", (chunk) ->
+
           if chunk is ' '
             # campfire api sends a ' ' heartbeat every 3s
 
@@ -166,6 +168,7 @@ class HubbubStreaming extends EventEmitter
               if part
                 try
                   data = JSON.parse part
+                  console.log(data)
                   self.emit data.type, data.id, data.created_at, data.room_id, data.user_id, data.body
                 catch error
                   logger.error "Campfire error: #{error}\n#{error.stack}"
