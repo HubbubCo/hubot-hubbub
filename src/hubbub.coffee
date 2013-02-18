@@ -36,7 +36,7 @@ class Hubbub extends Adapter
              name: "Test"
              id: userid
              room: room
-        newmsg = new TextMessage(user, body)
+        newmsg = new Robot.TextMessage(user, body)
         console.log("Bot.on");
         console.log(newmsg instanceof TextMessage);
         self.receive newmsg
