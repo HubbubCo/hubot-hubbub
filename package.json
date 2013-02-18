@@ -17,6 +17,7 @@
     "url": "git://github.com/HubbubCo/hubot-hubbub.git"
   },
   "dependencies": {
+    "hubot": ">=2.3.0"
   },
   "devDependencies": {
     "coffee-script": "1.1.3"
