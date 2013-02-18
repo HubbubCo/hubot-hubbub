@@ -1,8 +1,10 @@
 HTTPS          = require 'http'
 EventEmitter = require('events').EventEmitter
 
-{Robot, Adapter, EnterMessage, LeaveMessage, Response} = require 'hubot'
+{EnterMessage, LeaveMessage, Response} = require 'hubot'
 TextMessage = require('hubot').TextMessage
+Robot   = require('hubot').Robot
+Adapter = require('hubot').Adapter
 
 class Hubbub extends Adapter
   send: (envelope, strings...) ->
