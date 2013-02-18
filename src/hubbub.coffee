@@ -4,8 +4,9 @@ EventEmitter = require('events').EventEmitter
 Robot   = require('hubot').Robot
 Adapter = require('hubot').Adapter
 TextMessage = require('hubot').TextMessage
-{EnterMessage, LeaveMessage, Response} = require 'hubot'
-
+EnterMessage = require('hubot').EnterMessage
+LeaveMessage = require('hubot').LeaveMessage
+Response = require('hubot').Response
 
 
 class Hubbub extends Adapter
