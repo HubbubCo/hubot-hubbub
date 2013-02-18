@@ -11,7 +11,6 @@ class Hubbub extends Adapter
         @send envelope.user, strings...
 
   reply: (envelope, strings...) ->
-    console.log(envelope)
     @send envelope, strings.map((str) -> "#{envelope.name}: #{str}")...
 
   topic: (envelope, strings...) ->
@@ -39,16 +38,8 @@ class Hubbub extends Adapter
 
     bot.on "TextMessage", withAuthor (id, created, room, user, body, author) ->
       unless bot.info.id == author.id
-        console.log(author)
+        console.log(body);
         self.receive new TextMessage(author, body, id)
-
-    bot.on "EnterMessage", withAuthor (id, created, room, user, body, author) ->
-      unless bot.info.id == author.id
-        self.receive new EnterMessage(author, null, id)
-
-    bot.on "LeaveMessage", withAuthor (id, created, room, user, body, author) ->
-      unless bot.info.id == author.id
-        self.receive new LeaveMessage(author, null, id)
 
     bot.Me (err, data) ->
       bot.info = data.user
