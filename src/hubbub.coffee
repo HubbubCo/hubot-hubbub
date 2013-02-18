@@ -1,12 +1,9 @@
-HTTPS          = require 'http'
-EventEmitter = require('events').EventEmitter
-
 Robot   = require('hubot').Robot
 Adapter = require('hubot').Adapter
 TextMessage = require('hubot').TextMessage
-EnterMessage = require('hubot').EnterMessage
-LeaveMessage = require('hubot').LeaveMessage
-Response = require('hubot').Response
+
+HTTPS        = require 'http'
+EventEmitter = require('events').EventEmitter
 
 
 class Hubbub extends Adapter
@@ -43,14 +40,6 @@ class Hubbub extends Adapter
         console.log("Bot.on");
         console.log(newmsg instanceof TextMessage);
         self.receive newmsg
-
-    bot.on "EnterMessage", (id, created, room, user, body) ->
-      unless bot.info.id == user.id
-        self.receive new EnterMessage(user, null, id)
-
-    bot.on "LeaveMessage", (id, created, room, user, body) ->
-      unless bot.info.id == user.id
-        self.receive new LeaveMessage(user, null, id)
 
     bot.Me (err, data) ->
       bot.info = data.user
