@@ -78,7 +78,6 @@ class HubbubStreaming extends EventEmitter
     @token         = options.token
     @rooms         = options.rooms.split(",")
     @account       = options.account
-    @host          = "localhost"
     @authorization = "Basic " + new Buffer("#{@token}:x").toString("base64")
 
   Rooms: (callback) ->
@@ -136,8 +135,8 @@ class HubbubStreaming extends EventEmitter
 
       options =
         "agent"  : false
-        "host"   : "localhost"
-        "port"   : 3000
+        "host"   : "streaming.tryhubbub.com"
+        "port"   : 80
         "path"   : "/room/#{id}/live.json"
         "method" : "GET"
         "headers": headers
@@ -205,8 +204,8 @@ class HubbubStreaming extends EventEmitter
 
     options =
       "agent"  : false
-      "host"   : @host
-      "port"   : 3000
+      "host"   : "campfire.tryhubbub.com"
+      "port"   : 80
       "path"   : path
       "method" : method
       "headers": headers
