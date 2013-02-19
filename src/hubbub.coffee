@@ -130,7 +130,7 @@ class HubbubStreaming extends EventEmitter
     # listen for activity in channels
     listen: ->
       headers =
-        "Host"          : "localhost:3000"
+        "Host"          : "streaming.tryhubbub.com"
         "Authorization" : self.authorization
 
       options =
