@@ -50,6 +50,8 @@ class Hubbub extends Adapter
         self.receive new LeaveMessage(author, null, id)
 
     bot.Me (err, data) ->
+      console.log(err)
+      console.log(data)
       bot.info = data.user
       bot.name = bot.info.name
 
