@@ -11,7 +11,7 @@ class Hubbub extends Adapter
         @send envelope.user, strings...
 
   reply: (envelope, strings...) ->
-    @send envelope, strings.map((str) -> "#{envelope.name}: #{str}")...
+    @send envelope, strings.map((str) -> "@#{envelope.name}: #{str}")...
 
   topic: (envelope, strings...) ->
     @bot.Room(envelope.room).topic strings.join(" / "), (err, data) =>
@@ -93,28 +93,15 @@ class HubbubStreaming extends EventEmitter
     self = @
     logger = @robot.logger
 
-    show: (callback) ->
-      self.get "/room/#{id}", callback
-
     join: (callback) ->
       self.post "/room/#{id}/join", "", callback
 
     leave: (callback) ->
       self.post "/room/#{id}/leave", "", callback
 
-    lock: (callback) ->
-      self.post "/room/#{id}/lock", "", callback
-
-    unlock: (callback) ->
-      self.post "/room/#{id}/unlock", "", callback
-
     # say things to this channel on behalf of the token user
     paste: (text, callback) ->
       @message text, "PasteMessage", callback
-
-    topic: (text, callback) ->
-      body = {room: {topic: text}}
-      self.put "/room/#{id}", body, callback
 
     sound: (text, callback) ->
       @message text, "SoundMessage", callback
@@ -130,12 +117,12 @@ class HubbubStreaming extends EventEmitter
     # listen for activity in channels
     listen: ->
       headers =
-        "Host"          : "streaming.tryhubbub.com"
+        "Host"          : "streaming.hubbub.co"
         "Authorization" : self.authorization
 
       options =
         "agent"  : false
-        "host"   : "streaming.tryhubbub.com"
+        "host"   : "streaming.hubbub.co"
         "port"   : 80
         "path"   : "/room/#{id}/live.json"
         "method" : "GET"
@@ -204,7 +191,7 @@ class HubbubStreaming extends EventEmitter
 
     options =
       "agent"  : false
-      "host"   : "campfire.tryhubbub.com"
+      "host"   : "campfire.hubbub.co"
       "port"   : 80
       "path"   : path
       "method" : method
