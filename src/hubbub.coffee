@@ -22,7 +22,7 @@ class Hubbub extends Adapter
 
     options =
       token:   "xxx"
-      rooms:   "-In4QMAEP1Q0GHyCF4zu"
+      rooms:   "-In4QMAEP1Q0GHyCF4zu,-Iuy1AAWsCAyfZz3dDj3"
       account: "1"
 
     bot = new HubbubStreaming(options, @robot)
