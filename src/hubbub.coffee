@@ -38,7 +38,6 @@ class Hubbub extends Adapter
 
     bot.on "TextMessage", withAuthor (id, created, room, user, body, author) ->
       unless bot.info.id == author.id
-        console.log(body);
         self.receive new TextMessage(author, body, id)
 
     bot.on "EnterMessage", withAuthor (id, created, room, user, body, author) ->
